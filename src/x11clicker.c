@@ -7,11 +7,21 @@
     x11clicker.c
 */
 
+#include "x11clicker.h"
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
+
+int check_args(int argc, char *argv, char *arg) {
+  if (argc > 1 && !strcmp(argv, arg)) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
 
 // Function to simulate a mouse click and log it
 void click_mouse(Display *display, int button, int click_count) {
@@ -25,8 +35,16 @@ void click_mouse(Display *display, int button, int click_count) {
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
-    printf("Usage: %s <interval_in_milliseconds>\n", argv[0]);
+    puts(HELP_BANNER);
     return 1;
+  }
+
+  if (check_args(argc, argv[1], "-v") ||
+      check_args(argc, argv[1], "--version")) {
+    printf("x11clicker v%s\nLicensed under BSD-Clause-3\n", VERSION);
+  } else if (check_args(argc, argv[1], "-h") ||
+             check_args(argc, argv[1], "--help")) {
+    puts(HELP_BANNER);
   }
 
   // Convert interval argument to an integer (click interval in milliseconds)

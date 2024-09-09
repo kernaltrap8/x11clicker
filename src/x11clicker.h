@@ -4,11 +4,18 @@
 // under certain conditions
 
 /*
-    x11clicker.h
+        x11clicker.h
 */
 
 /*
-        function prototypes
+        required defines
+*/
+
+#define VERSION "0.2"
+#define HELP_BANNER "Usage: x11clicker <interval_in_milliseconds>"
+
+/*
+    function prototypes
 */
 
 void click_mouse(Display *display, int button, int click_count);
